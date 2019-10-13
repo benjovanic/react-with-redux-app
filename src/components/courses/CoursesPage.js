@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as courseActions from "../../redux/actions/courseActions";
 import * as authorActions from "../../redux/actions/authorActions";
@@ -9,13 +9,10 @@ import { Redirect } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
 
-class CoursesPage extends React.Component {
-  state = {
-    redirectToAddCoursePage: false
-  };
-  componentDidMount() {
-    const { courses, authors, actions } = this.props;
+export const CoursesPage = ({ courses, authors, actions, loading }) => {
+  const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
 
+  useEffect(() => {
     if (courses.length === 0) {
       actions.loadCourses().catch(error => {
         alert("Loading courses failed: " + error);
@@ -27,51 +24,41 @@ class CoursesPage extends React.Component {
         alert("Loading authors failed: " + error);
       });
     }
-  }
+  });
 
-  // handleDeleteCourse = course => {
-  //   toast.success("Course deleted");
-  //   this.props.actions.deleteCourse(course).catch(error => {
-  //     toast.error("Delete failed. " + error.message, { autoClose: false });
-  //   });
-  // };
-
-  handleDeleteCourse = async course => {
-    toast.success("Course deleted");
-    try {
-      await this.props.actions.deleteCourse(course);
-    } catch (error) {
-      toast.error("Delete failed. " + error.message, { autoClose: false });
-    }
+  const handleDeleteCourse = course => {
+    actions
+      .deleteCourse(course)
+      .then(() => {
+        toast.success("Course deleted");
+      })
+      .catch(error => {
+        toast.error("Delete failed. " + error.message, { autoClose: false });
+      });
   };
 
-  render() {
-    return (
-      <>
-        {this.state.redirectToAddCoursePage && <Redirect to="/course" />}
-        <h2>Courses</h2>
-        {this.props.loading ? (
-          <Spinner />
-        ) : (
-          <>
-            <button
-              style={{ marginBottom: 20 }}
-              className="btn btn-primary add-course"
-              onClick={() => this.setState({ redirectToAddCoursePage: true })}
-            >
-              Add Course
-            </button>
+  return (
+    <>
+      {redirectToAddCoursePage && <Redirect to="/course" />}
+      <h2>Courses</h2>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <button
+            style={{ marginBottom: 20 }}
+            className="btn btn-primary add-course"
+            onClick={() => setRedirectToAddCoursePage(true)}
+          >
+            Add Course
+          </button>
 
-            <CourseList
-              onDeleteClick={this.handleDeleteCourse}
-              courses={this.props.courses}
-            />
-          </>
-        )}
-      </>
-    );
-  }
-}
+          <CourseList onDeleteClick={handleDeleteCourse} courses={courses} />
+        </>
+      )}
+    </>
+  );
+};
 
 CoursesPage.propTypes = {
   courses: PropTypes.array.isRequired,

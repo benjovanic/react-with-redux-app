@@ -4,12 +4,12 @@ import HomePage from "./home/HomePage";
 import AboutPage from "./about/About";
 import Header from "./common/Header";
 import PageNotFound from "./PageNotFound";
-import CoursesPage from "./courses/CoursesPage";
+import CoursesPage from "./courses/CoursesPage"; // eslint-disable-line import/no-named-as-default
 import ManageCoursePage from "./courses/ManageCoursePage"; // eslint-disable-line import/no-named-as-default
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function App() {
+const App = () => {
   return (
     <div className="container-fluid">
       <Header />
@@ -24,6 +24,6 @@ function App() {
       <ToastContainer autoClose={3000} hideProgressBar />
     </div>
   );
-}
+};
 
 export default App;

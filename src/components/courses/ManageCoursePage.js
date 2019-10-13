@@ -8,7 +8,7 @@ import { newCourse } from "../../../tools/mockData";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
 
-export function ManageCoursePage({
+export const ManageCoursePage = ({
   courses,
   authors,
   loadAuthors,
@@ -16,7 +16,7 @@ export function ManageCoursePage({
   saveCourse,
   history,
   ...props
-}) {
+}) => {
   const [course, setCourse] = useState({ ...props.course });
   const [errors, setErrors] = useState();
   const [saving, setSaving] = useState(false);
@@ -37,15 +37,15 @@ export function ManageCoursePage({
     }
   }, [props.course]);
 
-  function handleChange(event) {
+  const handleChange = event => {
     const { name, value } = event.target;
     setCourse(prevCourse => ({
       ...prevCourse,
       [name]: name === "authorId" ? parseInt(value, 10) : value
     }));
-  }
+  };
 
-  function formIsValid() {
+  const formIsValid = () => {
     const { title, authorId, category } = course;
     const errors = {};
 
@@ -56,9 +56,9 @@ export function ManageCoursePage({
     setErrors(errors);
     // Form is valid if the errors object still has no properties
     return Object.keys(errors).length === 0;
-  }
+  };
 
-  function handleSave(event) {
+  const handleSave = event => {
     event.preventDefault();
     if (!formIsValid()) return;
     setSaving(true);
@@ -71,7 +71,7 @@ export function ManageCoursePage({
         setSaving(false);
         setErrors({ onSave: error.message });
       });
-  }
+  };
 
   return authors.length === 0 || courses.length === 0 ? (
     <Spinner />
@@ -85,7 +85,7 @@ export function ManageCoursePage({
       saving={saving}
     />
   );
-}
+};
 
 ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
@@ -97,11 +97,11 @@ ManageCoursePage.propTypes = {
   history: PropTypes.object.isRequired
 };
 
-export function getCourseBySlug(courses, slug) {
+const getCourseBySlug = (courses, slug) => {
   return courses.find(course => course.slug === slug) || null;
-}
+};
 
-function mapStateToProps(state, ownProps) {
+const mapStateToProps = (state, ownProps) => {
   const slug = ownProps.match.params.slug;
   const course =
     slug && state.courses.length > 0
@@ -112,7 +112,7 @@ function mapStateToProps(state, ownProps) {
     courses: state.courses,
     authors: state.authors
   };
-}
+};
 
 const mapDispatchToProps = {
   loadCourses,
