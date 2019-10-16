@@ -11,17 +11,18 @@ import { toast } from "react-toastify";
 
 export const CoursesPage = ({ courses, authors, actions, loading }) => {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
+  const [coursesFiltered, setCoursesFiltered] = useState(null);
 
   useEffect(() => {
     if (courses.length === 0) {
       actions.loadCourses().catch(error => {
-        alert("Loading courses failed: " + error);
+        toast.error("Loading courses failed: " + error);
       });
     }
 
     if (authors.length === 0) {
       actions.loadAuthors().catch(error => {
-        alert("Loading authors failed: " + error);
+        toast.error("Loading authors failed: " + error);
       });
     }
   });
@@ -35,6 +36,23 @@ export const CoursesPage = ({ courses, authors, actions, loading }) => {
       .catch(error => {
         toast.error("Delete failed. " + error.message, { autoClose: false });
       });
+  };
+
+  const filterCourses = event => {
+    const value = event.target.value.toUpperCase();
+
+    if (value.length === 0) {
+      setCoursesFiltered(null);
+    } else {
+      setCoursesFiltered(
+        courses.filter(
+          c =>
+            c.title.toUpperCase().indexOf(value) > -1 ||
+            c.authorName.toUpperCase().indexOf(value) > -1 ||
+            c.category.toUpperCase().indexOf(value) > -1
+        )
+      );
+    }
   };
 
   return (
@@ -53,7 +71,19 @@ export const CoursesPage = ({ courses, authors, actions, loading }) => {
             Add Course
           </button>
 
-          <CourseList onDeleteClick={handleDeleteCourse} courses={courses} />
+          <input
+            id="filter-courses"
+            type="text"
+            name="filter"
+            className="form-control"
+            placeholder="Filter courses"
+            onChange={filterCourses}
+          />
+
+          <CourseList
+            onDeleteClick={handleDeleteCourse}
+            courses={coursesFiltered != null ? coursesFiltered : courses}
+          />
         </>
       )}
     </>

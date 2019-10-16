@@ -24,7 +24,7 @@ export const ManageCoursePage = ({
   useEffect(() => {
     if (courses.length === 0) {
       loadCourses().catch(error => {
-        alert("Loading courses failed: " + error);
+        toast.error("Loading courses failed: " + error);
       });
     } else {
       setCourse({ ...props.course });
@@ -32,7 +32,7 @@ export const ManageCoursePage = ({
 
     if (authors.length === 0) {
       loadAuthors().catch(error => {
-        alert("Loading authors failed: " + error);
+        toast.error("Loading authors failed: " + error);
       });
     }
   }, [props.course]);
