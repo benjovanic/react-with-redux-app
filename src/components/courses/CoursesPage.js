@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import * as courseActions from "../../redux/actions/courseActions";
-import * as authorActions from "../../redux/actions/authorActions";
+import { loadCourses, deleteCourse } from "../../redux/actions/courseActions";
+import { loadAuthors } from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
 import CourseList from "./CourseList";
 import { Redirect } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
 
-export const CoursesPage = ({ courses, authors, actions, loading }) => {
+export const CoursesPage = ({
+  courses,
+  loadCourses,
+  loadAuthors,
+  deleteCourse,
+  loading
+}) => {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
   const [coursesFiltered, setCoursesFiltered] = useState(null);
 
   useEffect(() => {
-    if (courses.length === 0) {
-      actions.loadCourses().catch(error => {
-        toast.error("Loading courses failed: " + error);
-      });
-    }
+    loadCourses().catch(error => {
+      toast.error("Loading courses failed: " + error);
+    });
 
-    if (authors.length === 0) {
-      actions.loadAuthors().catch(error => {
-        toast.error("Loading authors failed: " + error);
-      });
-    }
-  });
+    loadAuthors().catch(error => {
+      toast.error("Loading authors failed: " + error);
+    });
+  }, []);
 
   const handleDeleteCourse = course => {
-    actions
-      .deleteCourse(course)
+    deleteCourse(course)
       .then(() => {
         toast.success("Course deleted");
       })
@@ -92,12 +92,13 @@ export const CoursesPage = ({ courses, authors, actions, loading }) => {
 
 CoursesPage.propTypes = {
   courses: PropTypes.array.isRequired,
-  authors: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
+  loadCourses: PropTypes.func.isRequired,
+  loadAuthors: PropTypes.func.isRequired,
+  deleteCourse: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
     courses:
       state.authors.length === 0
@@ -111,17 +112,13 @@ function mapStateToProps(state) {
     authors: state.authors,
     loading: state.apiCallsInProgress > 0
   };
-}
+};
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: {
-      loadCourses: bindActionCreators(courseActions.loadCourses, dispatch),
-      loadAuthors: bindActionCreators(authorActions.loadAuthors, dispatch),
-      deleteCourse: bindActionCreators(courseActions.deleteCourse, dispatch)
-    }
-  };
-}
+const mapDispatchToProps = {
+  loadCourses,
+  loadAuthors,
+  deleteCourse
+};
 
 export default connect(
   mapStateToProps,
