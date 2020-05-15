@@ -18,49 +18,43 @@ export const deleteCourseSuccess = (course) => {
   return { type: types.DELETE_COURSE_SUCCESS, course };
 };
 
-export const loadCourses = () => {
-  return (dispatch) => {
-    dispatch(beginApiCall());
-    return courseApi
-      .getCourses()
-      .then((courses) => {
-        dispatch(loadCoursesSuccess(courses));
-      })
-      .catch((error) => {
-        dispatch(apiCallError(error));
-        throw error;
-      });
-  };
+export const loadCourses = () => (dispatch) => {
+  dispatch(beginApiCall());
+  return courseApi
+    .getCourses()
+    .then((courses) => {
+      dispatch(loadCoursesSuccess(courses));
+    })
+    .catch((error) => {
+      dispatch(apiCallError(error));
+      throw error;
+    });
 };
 
-export const saveCourse = (course) => {
-  return (dispatch) => {
-    dispatch(beginApiCall());
-    return courseApi
-      .saveCourse(course)
-      .then((savedCourse) => {
-        course.id
-          ? dispatch(updateCourseSuccess(savedCourse))
-          : dispatch(createCourseSuccess(savedCourse));
-      })
-      .catch((error) => {
-        dispatch(apiCallError(error));
-        throw error;
-      });
-  };
+export const saveCourse = (course) => (dispatch) => {
+  dispatch(beginApiCall());
+  return courseApi
+    .saveCourse(course)
+    .then((savedCourse) => {
+      course.id
+        ? dispatch(updateCourseSuccess(savedCourse))
+        : dispatch(createCourseSuccess(savedCourse));
+    })
+    .catch((error) => {
+      dispatch(apiCallError(error));
+      throw error;
+    });
 };
 
-export const deleteCourse = (course) => {
-  return (dispatch) => {
-    dispatch(beginApiCall());
-    return courseApi
-      .deleteCourse(course.id)
-      .then(() => {
-        dispatch(deleteCourseSuccess(course));
-      })
-      .catch((error) => {
-        dispatch(apiCallError(error));
-        throw error;
-      });
-  };
+export const deleteCourse = (course) => (dispatch) => {
+  dispatch(beginApiCall());
+  return courseApi
+    .deleteCourse(course.id)
+    .then(() => {
+      dispatch(deleteCourseSuccess(course));
+    })
+    .catch((error) => {
+      dispatch(apiCallError(error));
+      throw error;
+    });
 };
