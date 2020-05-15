@@ -10,7 +10,9 @@ import { toast } from "react-toastify";
 export const CoursesPage = () => {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
   const [coursesFiltered, setCoursesFiltered] = useState(null);
+
   const dispatch = useDispatch();
+
   const courses = useSelector((state) =>
     state.authors.length === 0
       ? []
