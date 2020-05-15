@@ -23,7 +23,7 @@ export const ManageCoursePage = ({
 
   useEffect(() => {
     if (courses.length === 0) {
-      loadCourses().catch(error => {
+      loadCourses().catch((error) => {
         toast.error("Loading courses failed: " + error);
       });
     } else {
@@ -31,17 +31,17 @@ export const ManageCoursePage = ({
     }
 
     if (authors.length === 0) {
-      loadAuthors().catch(error => {
+      loadAuthors().catch((error) => {
         toast.error("Loading authors failed: " + error);
       });
     }
   }, [props.course]);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
-    setCourse(prevCourse => ({
+    setCourse((prevCourse) => ({
       ...prevCourse,
-      [name]: name === "authorId" ? parseInt(value, 10) : value
+      [name]: name === "authorId" ? parseInt(value, 10) : value,
     }));
   };
 
@@ -58,7 +58,7 @@ export const ManageCoursePage = ({
     return Object.keys(errors).length === 0;
   };
 
-  const handleSave = event => {
+  const handleSave = (event) => {
     event.preventDefault();
     if (!formIsValid()) return;
     setSaving(true);
@@ -67,7 +67,7 @@ export const ManageCoursePage = ({
         toast.success("Course saved.");
         history.push("/courses");
       })
-      .catch(error => {
+      .catch((error) => {
         setSaving(false);
         setErrors({ onSave: error.message });
       });
@@ -94,11 +94,11 @@ ManageCoursePage.propTypes = {
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
   saveCourse: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
 };
 
 const getCourseBySlug = (courses, slug) => {
-  return courses.find(course => course.slug === slug) || null;
+  return courses.find((course) => course.slug === slug) || null;
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -110,17 +110,14 @@ const mapStateToProps = (state, ownProps) => {
   return {
     course,
     courses: state.courses,
-    authors: state.authors
+    authors: state.authors,
   };
 };
 
 const mapDispatchToProps = {
   loadCourses,
   loadAuthors,
-  saveCourse
+  saveCourse,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ManageCoursePage);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);

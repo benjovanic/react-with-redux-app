@@ -18,12 +18,12 @@ describe("Async Actions", () => {
     it("should create BEGIN_API_CALL and LOAD_COURSES_SUCCESS when loading courses", () => {
       fetchMock.mock("*", {
         body: courses,
-        headers: { "content-type": "application/json" }
+        headers: { "content-type": "application/json" },
       });
 
       const expectedActions = [
         { type: types.BEGIN_API_CALL },
-        { type: types.LOAD_COURSES_SUCCESS, courses }
+        { type: types.LOAD_COURSES_SUCCESS, courses },
       ];
 
       const store = mockStore({ courses: [] });
@@ -40,7 +40,7 @@ describe("createCourseSuccess", () => {
     const course = courses[0];
     const expectedAction = {
       type: types.CREATE_COURSE_SUCCESS,
-      course
+      course,
     };
 
     // act

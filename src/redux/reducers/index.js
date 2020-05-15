@@ -6,7 +6,7 @@ import apiCallsInProgress from "./apiStatusReducer";
 const rootReducer = combineReducers({
   courses,
   authors,
-  apiCallsInProgress
+  apiCallsInProgress,
 });
 
 export default rootReducer;
