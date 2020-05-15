@@ -1,44 +1,50 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loadCourses, deleteCourse } from "../../redux/actions/courseActions";
 import { loadAuthors } from "../../redux/actions/authorActions";
-import PropTypes from "prop-types";
 import CourseList from "./CourseList";
 import { Redirect } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
 
-export const CoursesPage = ({
-  courses,
-  loadCourses,
-  loadAuthors,
-  deleteCourse,
-  loading
-}) => {
+export const CoursesPage = () => {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
   const [coursesFiltered, setCoursesFiltered] = useState(null);
+  const dispatch = useDispatch();
+  const courses = useSelector((state) =>
+    state.authors.length === 0
+      ? []
+      : state.courses.map((course) => {
+          return {
+            ...course,
+            authorName: state.authors.find((a) => a.id === course.authorId)
+              .name,
+          };
+        })
+  );
+  const loading = useSelector((state) => state.apiCallsInProgress > 0);
 
   useEffect(() => {
-    loadCourses().catch(error => {
-      toast.error("Loading courses failed: " + error);
+    dispatch(loadCourses()).catch((error) => {
+      toast.error(`Loading courses failed: ${error}`);
     });
 
-    loadAuthors().catch(error => {
-      toast.error("Loading authors failed: " + error);
+    dispatch(loadAuthors()).catch((error) => {
+      toast.error(`Loading authors failed: ${error}`);
     });
   }, []);
 
-  const handleDeleteCourse = course => {
-    deleteCourse(course)
+  const handleDeleteCourse = (course) => {
+    dispatch(deleteCourse(course))
       .then(() => {
         toast.success("Course deleted");
       })
-      .catch(error => {
+      .catch((error) => {
         toast.error("Delete failed. " + error.message, { autoClose: false });
       });
   };
 
-  const filterCourses = event => {
+  const filterCourses = (event) => {
     const value = event.target.value.toUpperCase();
 
     if (value.length === 0) {
@@ -46,7 +52,7 @@ export const CoursesPage = ({
     } else {
       setCoursesFiltered(
         courses.filter(
-          c =>
+          (c) =>
             c.title.toUpperCase().indexOf(value) > -1 ||
             c.authorName.toUpperCase().indexOf(value) > -1 ||
             c.category.toUpperCase().indexOf(value) > -1
@@ -90,37 +96,4 @@ export const CoursesPage = ({
   );
 };
 
-CoursesPage.propTypes = {
-  courses: PropTypes.array.isRequired,
-  loadCourses: PropTypes.func.isRequired,
-  loadAuthors: PropTypes.func.isRequired,
-  deleteCourse: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired
-};
-
-const mapStateToProps = state => {
-  return {
-    courses:
-      state.authors.length === 0
-        ? []
-        : state.courses.map(course => {
-            return {
-              ...course,
-              authorName: state.authors.find(a => a.id === course.authorId).name
-            };
-          }),
-    authors: state.authors,
-    loading: state.apiCallsInProgress > 0
-  };
-};
-
-const mapDispatchToProps = {
-  loadCourses,
-  loadAuthors,
-  deleteCourse
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CoursesPage);
+export default CoursesPage;
