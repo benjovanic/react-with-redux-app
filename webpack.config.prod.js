@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpackBundleAnalyzer = require('webpack-bundle-analyzer');
+const cssnano = require('cssnano');
 
 process.env.NODE_ENV = 'production';
 
@@ -65,7 +66,7 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => [require('cssnano')],
+              plugins: () => [cssnano],
               sourceMap: true,
             },
           },

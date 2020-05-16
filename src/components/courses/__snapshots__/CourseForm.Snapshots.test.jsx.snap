@@ -6,7 +6,8 @@ exports[`set submit button label to 'Save' when saving is false 1`] = `
 >
   <h2>
     Edit
-     Course
+     
+    Course
   </h2>
   <div
     className="form-group"
@@ -23,9 +24,11 @@ exports[`set submit button label to 'Save' when saving is false 1`] = `
         className="form-control"
         name="title"
         onChange={[MockFunction]}
+        placeholder=""
         type="text"
         value="Securing React Apps with Auth0"
       />
+      
     </div>
   </div>
   <div
@@ -66,6 +69,7 @@ exports[`set submit button label to 'Save' when saving is false 1`] = `
           Dan Wahlin
         </option>
       </select>
+      
     </div>
   </div>
   <div
@@ -83,9 +87,11 @@ exports[`set submit button label to 'Save' when saving is false 1`] = `
         className="form-control"
         name="category"
         onChange={[MockFunction]}
+        placeholder=""
         type="text"
         value="JavaScript"
       />
+      
     </div>
   </div>
   <button
@@ -104,7 +110,8 @@ exports[`set submit button label to 'Saving...' when saving is true 1`] = `
 >
   <h2>
     Edit
-     Course
+     
+    Course
   </h2>
   <div
     className="form-group"
@@ -121,9 +128,11 @@ exports[`set submit button label to 'Saving...' when saving is true 1`] = `
         className="form-control"
         name="title"
         onChange={[MockFunction]}
+        placeholder=""
         type="text"
         value="Securing React Apps with Auth0"
       />
+      
     </div>
   </div>
   <div
@@ -164,6 +173,7 @@ exports[`set submit button label to 'Saving...' when saving is true 1`] = `
           Dan Wahlin
         </option>
       </select>
+      
     </div>
   </div>
   <div
@@ -181,9 +191,11 @@ exports[`set submit button label to 'Saving...' when saving is true 1`] = `
         className="form-control"
         name="category"
         onChange={[MockFunction]}
+        placeholder=""
         type="text"
         value="JavaScript"
       />
+      
     </div>
   </div>
   <button
