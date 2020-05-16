@@ -10,7 +10,6 @@ ID: https://github.com/typicode/json-server/issues/613#issuecomment-325393041
 Relevant source code: https://github.com/typicode/json-server/blob/master/src/cli/run.js
 */
 
-/* eslint-disable no-console */
 // eslint-disable-next-line import/no-extraneous-dependencies
 const jsonServer = require('json-server');
 const path = require('path');
@@ -92,5 +91,6 @@ server.use(router);
 // Start server
 const port = 3001;
 server.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`JSON Server is running on port ${port}`);
 });

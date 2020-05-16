@@ -13,26 +13,23 @@ const getCourseBySlug = (courses, slug) => courses.find((course) => course.slug 
 export const ManageCoursePage = ({ history, match }) => {
   const dispatch = useDispatch();
 
-  const courses = useSelector((state) => state.courses);
-  const authors = useSelector((state) => state.authors);
+  const {
+    courses, coursesLoaded, authors, authorsLoaded,
+  } = useSelector((state) => state);
 
   const [course, setCourse] = useState();
   const [errors, setErrors] = useState();
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (!courses) {
-      dispatch(loadCourses()).catch((error) => {
-        toast.error(`Loading courses failed: ${error}`);
-      });
-    }
+    dispatch(loadCourses()).catch((error) => {
+      toast.error(`Loading courses failed: ${error}`);
+    });
 
-    if (authors.length === 0) {
-      dispatch(loadAuthors()).catch((error) => {
-        toast.error(`Loading authors failed: ${error}`);
-      });
-    }
-  }, [course]);
+    dispatch(loadAuthors()).catch((error) => {
+      toast.error(`Loading authors failed: ${error}`);
+    });
+  }, [coursesLoaded, authorsLoaded]);
 
   useEffect(() => {
     const { slug } = match.params;
@@ -78,7 +75,11 @@ export const ManageCoursePage = ({ history, match }) => {
       });
   };
 
-  return !course || authors.length === 0 || !courses ? (
+  if (authorsLoaded && authors.length === 0) {
+    return (<p>Create an author first</p>);
+  }
+
+  return !coursesLoaded || !course ? (
     <Spinner />
   ) : (
     <>

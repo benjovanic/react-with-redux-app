@@ -12,8 +12,10 @@ export const AuthorsPage = () => {
 
   const dispatch = useDispatch();
 
-  const authors = useSelector((state) => state.authors);
-  const loading = useSelector((state) => state.apiCallsInProgress > 0);
+  const { authors, loading } = useSelector((state) => ({
+    authors: state.authors,
+    loading: state.apiCallsInProgress > 0,
+  }));
 
   useEffect(() => {
     dispatch(loadAuthors()).catch((error) => {
@@ -24,6 +26,7 @@ export const AuthorsPage = () => {
   const handleDeleteAuthor = (author) => {
     dispatch(deleteAuthor(author))
       .then(() => {
+        setAuthorsFiltered(null);
         toast.success('Author deleted');
       })
       .catch((error) => {
@@ -37,13 +40,7 @@ export const AuthorsPage = () => {
     if (value.length === 0) {
       setAuthorsFiltered(null);
     } else {
-      setAuthorsFiltered(
-        authors.filter(
-          (c) => c.title.toUpperCase().indexOf(value) > -1
-            || c.authorName.toUpperCase().indexOf(value) > -1
-            || c.category.toUpperCase().indexOf(value) > -1,
-        ),
-      );
+      setAuthorsFiltered(authors.filter((c) => c.name.toUpperCase().indexOf(value) > -1));
     }
   };
 
@@ -56,7 +53,7 @@ export const AuthorsPage = () => {
       ) : (
         <>
           <button
-            type="submit"
+            type="button"
             style={{ marginBottom: 20 }}
             className="btn btn-primary add-course"
             onClick={() => setRedirectToAddAuthorPage(true)}

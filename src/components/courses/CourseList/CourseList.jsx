@@ -31,7 +31,7 @@ const CourseList = ({ courses, onDeleteClick }) => (courses.length > 0 ? (
           <td>{course.category}</td>
           <td>
             <button
-              type="submit"
+              type="button"
               className="btn btn-outline-danger"
               onClick={() => onDeleteClick(course)}
             >

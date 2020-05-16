@@ -18,8 +18,8 @@ const AuthorList = ({ authors, onDeleteClick }) => (authors.length > 0 ? (
           </td>
           <td>
             <button
-              type="submit"
-              className="btn btn-outline-danger"
+              type="button"
+              className="btn btn-outline-danger float-right"
               onClick={() => onDeleteClick(author)}
             >
               Delete

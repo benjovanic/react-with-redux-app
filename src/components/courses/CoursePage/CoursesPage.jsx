@@ -7,20 +7,23 @@ import { loadAuthors } from '../../../redux/actions/authorActions';
 import CourseList from '../CourseList/CourseList';
 import Spinner from '../../common/Spinner';
 
+const mapAuthorsToCourses = (courses, authors) => (
+  courses.map((course) => ({
+    ...course,
+    authorName: authors.find((a) => a.id === course.authorId).name,
+  }))
+);
+
 export const CoursesPage = () => {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
   const [coursesFiltered, setCoursesFiltered] = useState(null);
 
   const dispatch = useDispatch();
 
-  const courses = useSelector((state) => (!state.authors || state.authors.length === 0
-    ? []
-    : state.courses.map((course) => ({
-      ...course,
-      authorName: state.authors.find((a) => a.id === course.authorId)
-        .name,
-    }))));
-  const loading = useSelector((state) => state.apiCallsInProgress > 0);
+  const { courses, loading } = useSelector((state) => ({
+    courses: state.authors.length === 0 ? [] : mapAuthorsToCourses(state.courses, state.authors),
+    loading: state.apiCallsInProgress > 0,
+  }));
 
   useEffect(() => {
     dispatch(loadCourses()).catch((error) => {
@@ -35,6 +38,7 @@ export const CoursesPage = () => {
   const handleDeleteCourse = (course) => {
     dispatch(deleteCourse(course))
       .then(() => {
+        setCoursesFiltered(null);
         toast.success('Course deleted');
       })
       .catch((error) => {
@@ -67,7 +71,7 @@ export const CoursesPage = () => {
       ) : (
         <>
           <button
-            type="submit"
+            type="button"
             style={{ marginBottom: 20 }}
             className="btn btn-primary add-course"
             onClick={() => setRedirectToAddCoursePage(true)}

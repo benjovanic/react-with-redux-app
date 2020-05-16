@@ -12,19 +12,17 @@ const getAuthorBySlug = (authors, slug) => authors.find((author) => author.slug 
 export const ManageAuthorPage = ({ history, match }) => {
   const dispatch = useDispatch();
 
-  const authors = useSelector((state) => state.authors);
+  const { authors, authorsLoaded } = useSelector((state) => state);
 
   const [author, setAuthor] = useState();
   const [errors, setErrors] = useState();
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (!authors) {
-      dispatch(loadAuthors()).catch((error) => {
-        toast.error(`Loading authors failed: ${error}`);
-      });
-    }
-  }, [author]);
+    dispatch(loadAuthors()).catch((error) => {
+      toast.error(`Loading authors failed: ${error}`);
+    });
+  }, [authorsLoaded]);
 
   useEffect(() => {
     const { slug } = match.params;

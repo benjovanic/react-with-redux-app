@@ -20,3 +20,7 @@ nav {
   width: 25%;
   float: right;
 }
+
+.cancel-button {
+  margin-left: 10px;
+}
