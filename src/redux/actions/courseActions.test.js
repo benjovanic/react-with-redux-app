@@ -1,24 +1,24 @@
-import * as courseActions from "./courseActions";
-import * as types from "./actionTypes";
-import { courses } from "../../../tools/mockData";
-import thunk from "redux-thunk";
-import fetchMock from "fetch-mock";
-import configureMockStore from "redux-mock-store";
+import thunk from 'redux-thunk';
+import fetchMock from 'fetch-mock';
+import configureMockStore from 'redux-mock-store';
+import * as courseActions from './courseActions';
+import * as types from './actionTypes';
+import { courses } from '../../../tools/mockData';
 
 // Test an async action
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 
-describe("Async Actions", () => {
+describe('Async Actions', () => {
   afterEach(() => {
     fetchMock.restore();
   });
 
-  describe("Load Courses Thunk", () => {
-    it("should create BEGIN_API_CALL and LOAD_COURSES_SUCCESS when loading courses", () => {
-      fetchMock.mock("*", {
+  describe('Load Courses Thunk', () => {
+    it('should create BEGIN_API_CALL and LOAD_COURSES_SUCCESS when loading courses', () => {
+      fetchMock.mock('*', {
         body: courses,
-        headers: { "content-type": "application/json" },
+        headers: { 'content-type': 'application/json' },
       });
 
       const expectedActions = [
@@ -34,8 +34,8 @@ describe("Async Actions", () => {
   });
 });
 
-describe("createCourseSuccess", () => {
-  it("should create a CREATE_COURSE_SUCCESS action", () => {
+describe('createCourseSuccess', () => {
+  it('should create a CREATE_COURSE_SUCCESS action', () => {
     // arrange
     const course = courses[0];
     const expectedAction = {

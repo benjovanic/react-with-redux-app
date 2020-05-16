@@ -1,15 +1,12 @@
-import * as types from "./actionTypes";
-import * as authorApi from "../../api/authorApi";
-import { beginApiCall, apiCallError } from "./apiStatusActions";
+import * as types from './actionTypes';
+import { getAuthors } from '../../api/authorApi';
+import { beginApiCall, apiCallError } from './apiStatusActions';
 
-export const loadAuthorsSuccess = (authors) => {
-  return { type: types.LOAD_AUTHORS_SUCCESS, authors };
-};
+export const loadAuthorsSuccess = (authors) => ({ type: types.LOAD_AUTHORS_SUCCESS, authors });
 
 export const loadAuthors = () => (dispatch) => {
   dispatch(beginApiCall());
-  return authorApi
-    .getAuthors()
+  return getAuthors()
     .then((authors) => {
       dispatch(loadAuthorsSuccess(authors));
     })

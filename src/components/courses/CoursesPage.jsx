@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loadCourses, deleteCourse } from "../../redux/actions/courseActions";
-import { loadAuthors } from "../../redux/actions/authorActions";
-import CourseList from "./CourseList";
-import { Redirect } from "react-router-dom";
-import Spinner from "../common/Spinner";
-import { toast } from "react-toastify";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { loadCourses, deleteCourse } from '../../redux/actions/courseActions';
+import { loadAuthors } from '../../redux/actions/authorActions';
+import CourseList from './CourseList';
+import Spinner from '../common/Spinner';
 
 export const CoursesPage = () => {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
@@ -13,17 +13,13 @@ export const CoursesPage = () => {
 
   const dispatch = useDispatch();
 
-  const courses = useSelector((state) =>
-    state.authors.length === 0
-      ? []
-      : state.courses.map((course) => {
-          return {
-            ...course,
-            authorName: state.authors.find((a) => a.id === course.authorId)
-              .name,
-          };
-        })
-  );
+  const courses = useSelector((state) => (state.authors.length === 0
+    ? []
+    : state.courses.map((course) => ({
+      ...course,
+      authorName: state.authors.find((a) => a.id === course.authorId)
+        .name,
+    }))));
   const loading = useSelector((state) => state.apiCallsInProgress > 0);
 
   useEffect(() => {
@@ -39,10 +35,10 @@ export const CoursesPage = () => {
   const handleDeleteCourse = (course) => {
     dispatch(deleteCourse(course))
       .then(() => {
-        toast.success("Course deleted");
+        toast.success('Course deleted');
       })
       .catch((error) => {
-        toast.error("Delete failed. " + error.message, { autoClose: false });
+        toast.error(`Delete failed. ${error.message}`, { autoClose: false });
       });
   };
 
@@ -54,11 +50,10 @@ export const CoursesPage = () => {
     } else {
       setCoursesFiltered(
         courses.filter(
-          (c) =>
-            c.title.toUpperCase().indexOf(value) > -1 ||
-            c.authorName.toUpperCase().indexOf(value) > -1 ||
-            c.category.toUpperCase().indexOf(value) > -1
-        )
+          (c) => c.title.toUpperCase().indexOf(value) > -1
+            || c.authorName.toUpperCase().indexOf(value) > -1
+            || c.category.toUpperCase().indexOf(value) > -1,
+        ),
       );
     }
   };
@@ -72,6 +67,7 @@ export const CoursesPage = () => {
       ) : (
         <>
           <button
+            type="submit"
             style={{ marginBottom: 20 }}
             className="btn btn-primary add-course"
             onClick={() => setRedirectToAddCoursePage(true)}

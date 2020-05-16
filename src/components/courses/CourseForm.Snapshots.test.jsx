@@ -1,9 +1,9 @@
-import React from "react";
-import CourseForm from "./CourseForm";
-import renderer from "react-test-renderer";
-import { courses, authors } from "../../../tools/mockData";
+import React from 'react';
+import renderer from 'react-test-renderer';
+import CourseForm from './CourseForm';
+import { courses, authors } from '../../../tools/mockData';
 
-it("set submit button label to 'Saving...' when saving is true", () => {
+it('set submit button label to \'Saving...\' when saving is true', () => {
   const tree = renderer.create(
     <CourseForm
       course={courses[0]}
@@ -11,13 +11,13 @@ it("set submit button label to 'Saving...' when saving is true", () => {
       onSave={jest.fn()}
       onChange={jest.fn()}
       saving
-    />
+    />,
   );
 
   expect(tree).toMatchSnapshot();
 });
 
-it("set submit button label to 'Save' when saving is false", () => {
+it('set submit button label to \'Save\' when saving is false', () => {
   const tree = renderer.create(
     <CourseForm
       course={courses[0]}
@@ -25,7 +25,7 @@ it("set submit button label to 'Save' when saving is false", () => {
       onSave={jest.fn()}
       onChange={jest.fn()}
       saving={false}
-    />
+    />,
   );
 
   expect(tree).toMatchSnapshot();

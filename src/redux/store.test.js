@@ -1,13 +1,13 @@
-import { createStore } from "redux";
-import rootReducer from "./reducers";
-import initialState from "./reducers/initialState";
-import * as courseActions from "./actions/courseActions";
+import { createStore } from 'redux';
+import rootReducer from './reducers';
+import initialState from './reducers/initialState';
+import * as courseActions from './actions/courseActions';
 
-it("Should handle creating courses", () => {
+it('Should handle creating courses', () => {
   // arrange
   const store = createStore(rootReducer, initialState);
   const course = {
-    title: "Clean Code",
+    title: 'Clean Code',
   };
 
   // act
