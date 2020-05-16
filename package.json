@@ -15,8 +15,8 @@
     "build": "webpack --config webpack.config.prod.js",
     "postbuild": "run-p start:api serve:build",
     "serve:build": "http-server ./build",
-    "lint": "eslint ./src",
-    "lint:fix": "eslint --fix ./src"
+    "lint": "eslint ./src ./tools",
+    "lint:fix": "eslint --fix ./src ./tools"
   },
   "jest": {
     "setupFiles": [

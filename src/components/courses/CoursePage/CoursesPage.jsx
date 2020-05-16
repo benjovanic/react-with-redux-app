@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { loadCourses, deleteCourse } from '../../redux/actions/courseActions';
-import { loadAuthors } from '../../redux/actions/authorActions';
-import CourseList from './CourseList';
-import Spinner from '../common/Spinner';
+import { loadCourses, deleteCourse } from '../../../redux/actions/courseActions';
+import { loadAuthors } from '../../../redux/actions/authorActions';
+import CourseList from '../CourseList/CourseList';
+import Spinner from '../../common/Spinner';
 
 export const CoursesPage = () => {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
@@ -13,7 +13,7 @@ export const CoursesPage = () => {
 
   const dispatch = useDispatch();
 
-  const courses = useSelector((state) => (state.authors.length === 0
+  const courses = useSelector((state) => (!state.authors || state.authors.length === 0
     ? []
     : state.courses.map((course) => ({
       ...course,

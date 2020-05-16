@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import CourseForm from './CourseForm';
-import { courses, authors } from '../../../tools/mockData';
+import { courses, authors } from '../../../../tools/mockData';
 
 it('set submit button label to \'Saving...\' when saving is true', () => {
   const tree = renderer.create(

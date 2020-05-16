@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import { loadCourses, saveCourse } from '../../redux/actions/courseActions';
-import { loadAuthors } from '../../redux/actions/authorActions';
-import CourseForm from './CourseForm';
-import { newCourse } from '../../../tools/mockData';
-import Spinner from '../common/Spinner';
+import { loadCourses, saveCourse } from '../../../redux/actions/courseActions';
+import { loadAuthors } from '../../../redux/actions/authorActions';
+import CourseForm from '../CourseForm/CourseForm';
+import { newCourse } from '../../../../tools/mockData';
+import Spinner from '../../common/Spinner';
 
 const getCourseBySlug = (courses, slug) => courses.find((course) => course.slug === slug) || null;
 
@@ -22,7 +22,6 @@ export const ManageCoursePage = ({ history, match }) => {
 
   useEffect(() => {
     if (!courses) {
-      console.log('here1');
       dispatch(loadCourses()).catch((error) => {
         toast.error(`Loading courses failed: ${error}`);
       });
