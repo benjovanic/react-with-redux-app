@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render App component 1`] = `
+<div
+  className="container-fluid"
+>
+  <nav>
+    <a
+      aria-current="page"
+      className="active"
+      href="/"
+      onClick={[Function]}
+      style={
+        Object {
+          "color": "#F15B2A",
+        }
+      }
+    >
+      Home
+    </a>
+     | 
+    <a
+      aria-current={null}
+      href="/courses"
+      onClick={[Function]}
+    >
+      Courses
+    </a>
+     | 
+    <a
+      aria-current={null}
+      href="/authors"
+      onClick={[Function]}
+    >
+      Authors
+    </a>
+     | 
+    <a
+      aria-current={null}
+      href="/about"
+      onClick={[Function]}
+    >
+      About
+    </a>
+  </nav>
+  <div
+    className="jumbotron"
+  >
+    <h1>
+      Pluralsight Administration
+    </h1>
+    <p>
+      React, Redux and React Router for ultra-responsive web apps.
+    </p>
+    <a
+      className="btn btn-primary btn-lg"
+      href="/about"
+      onClick={[Function]}
+    >
+      Learn more
+    </a>
+  </div>
+  <div
+    className="Toastify"
+  />
+</div>
+`;

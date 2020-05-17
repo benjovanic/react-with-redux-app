@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render empty list of authors 1`] = `
+<p>
+  There are no authors to display.
+</p>
+`;
+
+exports[`render list of authors 1`] = `
+<table
+  className="table"
+>
+  <thead>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+         
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <a
+          href="/author/cory-house"
+          onClick={[Function]}
+        >
+          Cory House
+        </a>
+      </td>
+      <td>
+        <button
+          className="btn btn-outline-danger float-right"
+          onClick={[Function]}
+          type="button"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a
+          href="/author/scott-allen"
+          onClick={[Function]}
+        >
+          Scott Allen
+        </a>
+      </td>
+      <td>
+        <button
+          className="btn btn-outline-danger float-right"
+          onClick={[Function]}
+          type="button"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a
+          href="/author/dan-wahlin"
+          onClick={[Function]}
+        >
+          Dan Wahlin
+        </a>
+      </td>
+      <td>
+        <button
+          className="btn btn-outline-danger float-right"
+          onClick={[Function]}
+          type="button"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;

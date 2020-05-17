@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render TextInput component 1`] = `
+<div
+  className="form-group"
+>
+  <label
+    htmlFor="input"
+  >
+    Input
+  </label>
+  <div
+    className="field"
+  >
+    <input
+      className="form-control"
+      name="input"
+      onChange={[MockFunction]}
+      placeholder=""
+      type="text"
+      value=""
+    />
+    
+  </div>
+</div>
+`;

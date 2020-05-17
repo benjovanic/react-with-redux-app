@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { loadAuthors, saveAuthor } from '../../../redux/actions/authorActions';
-import AuthorForm from '../AuthorForm/AuthorForm';
+import AuthorForm from '../AuthorForm';
 import { newAuthor } from '../../../../tools/mockData';
 import Spinner from '../../common/Spinner';
 
 const getAuthorBySlug = (authors, slug) => authors.find((author) => author.slug === slug) || null;
 
-export const ManageAuthorPage = ({ history, match }) => {
+const ManageAuthorPage = ({ history, match }) => {
   const dispatch = useDispatch();
 
   const { authors, authorsLoaded } = useSelector((state) => state);

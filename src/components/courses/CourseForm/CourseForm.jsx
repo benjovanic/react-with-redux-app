@@ -38,9 +38,9 @@ const CourseForm = ({
 
         <SelectInput
           name="authorId"
-          label="Course"
+          label="Author"
           value={course.authorId || ''}
-          defaultOption="Select Course"
+          defaultOption="Select Author"
           options={authors.map((author) => ({
             value: author.id,
             text: author.name,

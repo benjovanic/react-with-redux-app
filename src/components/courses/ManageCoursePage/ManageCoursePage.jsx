@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { loadCourses, saveCourse } from '../../../redux/actions/courseActions';
 import { loadAuthors } from '../../../redux/actions/authorActions';
-import CourseForm from '../CourseForm/CourseForm';
+import CourseForm from '../CourseForm';
 import { newCourse } from '../../../../tools/mockData';
 import Spinner from '../../common/Spinner';
 
 const getCourseBySlug = (courses, slug) => courses.find((course) => course.slug === slug) || null;
 
-export const ManageCoursePage = ({ history, match }) => {
+const ManageCoursePage = ({ history, match }) => {
   const dispatch = useDispatch();
 
   const {

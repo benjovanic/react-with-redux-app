@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render HomePage component 1`] = `
+<div
+  className="jumbotron"
+>
+  <h1>
+    Pluralsight Administration
+  </h1>
+  <p>
+    React, Redux and React Router for ultra-responsive web apps.
+  </p>
+  <a
+    className="btn btn-primary btn-lg"
+    href="/about"
+    onClick={[Function]}
+  >
+    Learn more
+  </a>
+</div>
+`;
