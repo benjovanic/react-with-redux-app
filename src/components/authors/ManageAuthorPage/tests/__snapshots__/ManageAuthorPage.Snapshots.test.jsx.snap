@@ -1,3 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ManageAuthorPage render ManageAuthorPage with empty authors 1`] = `""`;
+exports[`ManageAuthorPage render ManageAuthorPage with loading spinner 1`] = `
+<div
+  className="loader"
+>
+  Loading...
+</div>
+`;
+
+exports[`ManageAuthorPage render ManageAuthorPage with mock AuthorForm 1`] = `
+<div
+  className="author-form-mock"
+/>
+`;

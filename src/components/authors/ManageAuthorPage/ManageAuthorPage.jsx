@@ -73,7 +73,6 @@ const ManageAuthorPage = ({ history, match }) => {
       <AuthorForm
         author={author}
         errors={errors}
-        authors={authors}
         onChange={handleChange}
         onSave={handleSave}
         saving={saving}

@@ -5,10 +5,14 @@ import { MemoryRouter } from 'react-router-dom';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import AuthorsPage from '../AuthorsPage';
-import { authors } from '../../../../../tools/mockData';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
+
+jest.mock('../../AuthorList', () => {
+  const AuthorListMock = () => (<div className="author-list-mock" />);
+  return AuthorListMock;
+});
 
 let spyOnUseDispatch;
 
@@ -24,7 +28,7 @@ describe('AuthorsPage', () => {
     spyOnUseDispatch.mockRestore();
   });
 
-  it('render AuthorsPage with empty authors', () => {
+  it('render AuthorsPage with mock AuthorList', () => {
     const store = mockStore({
       authors: [],
     });
@@ -36,9 +40,9 @@ describe('AuthorsPage', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('render AuthorsPage with authors', () => {
+  it('render AuthorsPage with loading spinner', () => {
     const store = mockStore({
-      authors,
+      apiCallsInProgress: 1,
     });
     const tree = renderer.create(
       <MemoryRouter>
