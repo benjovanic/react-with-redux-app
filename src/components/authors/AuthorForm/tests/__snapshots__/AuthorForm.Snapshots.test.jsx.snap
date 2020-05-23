@@ -1,5 +1,105 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`render add author 1`] = `
+<form
+  onSubmit={[MockFunction]}
+>
+  <h2>
+    Add
+     
+    Author
+  </h2>
+  <div
+    className="form-group"
+  >
+    <label
+      htmlFor="name"
+    >
+      Name
+    </label>
+    <div
+      className="field"
+    >
+      <input
+        className="form-control"
+        name="name"
+        onChange={[MockFunction]}
+        placeholder=""
+        type="text"
+        value=""
+      />
+      
+    </div>
+  </div>
+  <button
+    className="btn btn-primary"
+    disabled={false}
+    type="submit"
+  >
+    Save
+  </button>
+  <button
+    className="btn btn-secondary cancel-button"
+    onClick={[Function]}
+    type="button"
+  >
+    Cancel
+  </button>
+</form>
+`;
+
+exports[`render errors on name field 1`] = `
+<form
+  onSubmit={[MockFunction]}
+>
+  <h2>
+    Add
+     
+    Author
+  </h2>
+  <div
+    className="form-group has-error"
+  >
+    <label
+      htmlFor="name"
+    >
+      Name
+    </label>
+    <div
+      className="field"
+    >
+      <input
+        className="form-control"
+        name="name"
+        onChange={[MockFunction]}
+        placeholder=""
+        type="text"
+        value=""
+      />
+      <div
+        className="alert alert-danger"
+      >
+        Name is required.
+      </div>
+    </div>
+  </div>
+  <button
+    className="btn btn-primary"
+    disabled={false}
+    type="submit"
+  >
+    Save
+  </button>
+  <button
+    className="btn btn-secondary cancel-button"
+    onClick={[Function]}
+    type="button"
+  >
+    Cancel
+  </button>
+</form>
+`;
+
 exports[`set submit button label to 'Save' when saving is false 1`] = `
 <form
   onSubmit={[MockFunction]}
