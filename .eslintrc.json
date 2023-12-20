@@ -19,7 +19,8 @@
   "rules": {
     "no-debugger": "off",
     "no-unused-vars": "warn",
-    "react/prop-types": "warn"
+    "react/prop-types": "warn",
+    "jsx-a11y/control-has-associated-label": "off"
   },
   "settings": {
     "react": {

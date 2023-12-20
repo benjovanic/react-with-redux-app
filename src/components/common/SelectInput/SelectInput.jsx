@@ -46,7 +46,7 @@ SelectInput.propTypes = {
   defaultOption: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   error: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.object),
+  options: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default SelectInput;
