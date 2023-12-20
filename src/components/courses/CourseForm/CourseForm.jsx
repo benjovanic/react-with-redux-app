@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import TextInput from '../../common/TextInput';
 import SelectInput from '../../common/SelectInput';
 
@@ -16,7 +16,7 @@ const CourseForm = ({
 
   return (
     <>
-      {redirectToCoursesPage && <Redirect to="/courses" />}
+      {redirectToCoursesPage && <Navigate to="/courses" />}
       <form onSubmit={onSave}>
         <h2>
           {course.id ? 'Edit' : 'Add'}

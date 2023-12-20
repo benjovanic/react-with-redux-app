@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import TextInput from '../../common/TextInput';
 
 const AuthorForm = ({
@@ -14,7 +14,7 @@ const AuthorForm = ({
 
   return (
     <>
-      {redirectToAuthorsPage && <Redirect to="/authors" />}
+      {redirectToAuthorsPage && <Navigate to="/authors" />}
       <form onSubmit={onSave}>
         <h2>
           {author.id ? 'Edit' : 'Add'}

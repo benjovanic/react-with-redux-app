@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import HomePage from '../HomePage';
 import AboutPage from '../AboutPage';
@@ -14,17 +14,17 @@ import 'react-toastify/dist/ReactToastify.css';
 const App = () => (
   <div className="container-fluid">
     <Header />
-    <Switch>
-      <Route exact path="/" component={HomePage} />
-      <Route path="/about" component={AboutPage} />
-      <Route path="/courses" component={CoursesPage} />
-      <Route path="/course/:slug" component={ManageCoursePage} />
-      <Route path="/course" component={ManageCoursePage} />
-      <Route path="/authors" component={AuthorsPage} />
-      <Route path="/author/:slug" component={ManageAuthorPage} />
-      <Route path="/author" component={ManageAuthorPage} />
-      <Route component={PageNotFound} />
-    </Switch>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/courses" element={<CoursesPage />} />
+      <Route path="/course/:slug" element={<ManageCoursePage />} />
+      <Route path="/course" element={<ManageCoursePage />} />
+      <Route path="/authors" element={<AuthorsPage />} />
+      <Route path="/author/:slug" element={<ManageAuthorPage />} />
+      <Route path="/author" element={<ManageAuthorPage />} />
+      <Route element={<PageNotFound />} />
+    </Routes>
     <ToastContainer autoClose={3000} hideProgressBar />
   </div>
 );

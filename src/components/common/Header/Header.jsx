@@ -6,19 +6,19 @@ const Header = () => {
 
   return (
     <nav>
-      <NavLink to="/" activeStyle={activeStyle} exact>
+      <NavLink style={({ isActive }) => (isActive ? activeStyle : {})} to="/">
         Home
       </NavLink>
       {' | '}
-      <NavLink to="/courses" activeStyle={activeStyle}>
+      <NavLink  style={({ isActive }) => (isActive ? activeStyle : {})} to="/courses">
         Courses
       </NavLink>
       {' | '}
-      <NavLink to="/authors" activeStyle={activeStyle}>
+      <NavLink  style={({ isActive }) => (isActive ? activeStyle : {})} to="/authors">
         Authors
       </NavLink>
       {' | '}
-      <NavLink to="/about" activeStyle={activeStyle}>
+      <NavLink  style={({ isActive }) => (isActive ? activeStyle : {})} to="/about">
         About
       </NavLink>
     </nav>

@@ -1,6 +1,7 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
 
+// eslint-disable-next-line default-param-last
 const courseReducer = (state = initialState.courses, action) => {
   switch (action.type) {
     case types.CREATE_COURSE_SUCCESS:

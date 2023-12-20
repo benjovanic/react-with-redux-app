@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { loadCourses, saveCourse } from '../../../redux/actions/courseActions';
 import { loadAuthors } from '../../../redux/actions/authorActions';
@@ -10,8 +10,10 @@ import Spinner from '../../common/Spinner';
 
 const getCourseBySlug = (courses, slug) => courses.find((course) => course.slug === slug) || null;
 
-const ManageCoursePage = ({ history, match }) => {
+const ManageCoursePage = () => {
+  const { slug } = useParams();
   const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const {
     courses, coursesLoaded, authors, authorsLoaded,
@@ -32,12 +34,11 @@ const ManageCoursePage = ({ history, match }) => {
   }, [coursesLoaded, authorsLoaded]);
 
   useEffect(() => {
-    const { slug } = match.params;
     const getCourse = slug && courses && courses.length > 0
       ? getCourseBySlug(courses, slug)
       : newCourse;
     setCourse({ ...getCourse });
-  }, [courses]);
+  }, [courses, slug]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -67,7 +68,7 @@ const ManageCoursePage = ({ history, match }) => {
     dispatch(saveCourse(course))
       .then(() => {
         toast.success('Course saved.');
-        history.push('/courses');
+        navigate('/courses');
       })
       .catch((error) => {
         setSaving(false);
@@ -93,17 +94,6 @@ const ManageCoursePage = ({ history, match }) => {
       />
     </>
   );
-};
-
-ManageCoursePage.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      slug: PropTypes.string,
-    }),
-  }).isRequired,
 };
 
 export default ManageCoursePage;

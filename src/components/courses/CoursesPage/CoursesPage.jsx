@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { loadCourses, deleteCourse } from '../../../redux/actions/courseActions';
 import { loadAuthors } from '../../../redux/actions/authorActions';
@@ -64,7 +64,7 @@ const CoursesPage = () => {
 
   return (
     <>
-      {redirectToAddCoursePage && <Redirect to="/course" />}
+      {redirectToAddCoursePage && <Navigate to="/course" />}
       <h2>Courses</h2>
       {loading ? (
         <Spinner />

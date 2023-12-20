@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { loadAuthors, deleteAuthor } from '../../../redux/actions/authorActions';
 import AuthorList from '../AuthorList';
@@ -46,7 +46,7 @@ const AuthorsPage = () => {
 
   return (
     <>
-      {redirectToAddAuthorPage && <Redirect to="/author" />}
+      {redirectToAddAuthorPage && <Navigate to="/author" />}
       <h2>Authors</h2>
       {loading ? (
         <Spinner />

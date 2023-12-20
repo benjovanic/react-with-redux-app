@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpackBundleAnalyzer = require('webpack-bundle-analyzer');
 const cssnano = require('cssnano');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 process.env.NODE_ENV = 'production';
 
@@ -18,6 +19,7 @@ module.exports = {
     filename: 'bundle.js',
   },
   plugins: [
+    new ESLintPlugin(),
     // Display bundle stats
     new webpackBundleAnalyzer.BundleAnalyzerPlugin({ analyzerMode: 'static' }),
     new MiniCssExtractPlugin({
@@ -51,7 +53,14 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader'],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env', { targets: "defaults" }]
+            ]
+          }
+        }
       },
       {
         test: /(\.css)$/,

@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 process.env.NODE_ENV = 'development';
 
@@ -15,14 +16,12 @@ module.exports = {
     filename: 'bundle.js',
   },
   devServer: {
-    stats: 'minimal',
-    overlay: true,
     historyApiFallback: true,
-    disableHostCheck: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
     https: false,
   },
   plugins: [
+    new ESLintPlugin(),
     new webpack.DefinePlugin({
       'process.env.API_URL': JSON.stringify('http://localhost:3001'),
     }),
@@ -36,7 +35,14 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader'],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env', { targets: "defaults" }]
+            ]
+          }
+        }
       },
       {
         test: /(\.css)$/,

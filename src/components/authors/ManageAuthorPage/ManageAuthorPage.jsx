@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { loadAuthors, saveAuthor } from '../../../redux/actions/authorActions';
 import AuthorForm from '../AuthorForm';
@@ -9,8 +9,10 @@ import Spinner from '../../common/Spinner';
 
 const getAuthorBySlug = (authors, slug) => authors.find((author) => author.slug === slug) || null;
 
-const ManageAuthorPage = ({ history, match }) => {
+const ManageAuthorPage = () => {
+  const { slug } = useParams();
   const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const { authors, authorsLoaded } = useSelector((state) => state);
 
@@ -25,12 +27,11 @@ const ManageAuthorPage = ({ history, match }) => {
   }, [authorsLoaded]);
 
   useEffect(() => {
-    const { slug } = match.params;
     const getAuthor = slug && authors && authors.length > 0
       ? getAuthorBySlug(authors, slug)
       : newAuthor;
     setAuthor({ ...getAuthor });
-  }, [authors]);
+  }, [authors, slug]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -58,7 +59,7 @@ const ManageAuthorPage = ({ history, match }) => {
     dispatch(saveAuthor(author))
       .then(() => {
         toast.success('Author saved.');
-        history.push('/authors');
+        navigate('/authors');
       })
       .catch((error) => {
         setSaving(false);
@@ -79,17 +80,6 @@ const ManageAuthorPage = ({ history, match }) => {
       />
     </>
   );
-};
-
-ManageAuthorPage.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      slug: PropTypes.string,
-    }),
-  }).isRequired,
 };
 
 export default ManageAuthorPage;
